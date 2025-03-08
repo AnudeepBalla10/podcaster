@@ -3,6 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+interface Episode {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  audioUrl: string;
+  duration: string;
+  date: Date;
+  tags: string[];
+}
+
 @Component({
   selector: 'app-episodes',
   standalone: true,
@@ -86,14 +97,14 @@ export class EpisodesComponent implements OnInit {
   
   tags: string[] = ['AI', 'Web Development', 'Cloud', 'Security', 'Mobile', 'DevOps'];
   
-  episodes: any[] = [];
+  episodes: Episode[] = [];
 
   ngOnInit() {
     this.loadEpisodes();
   }
 
   loadEpisodes() {
-    const episodeFiles = [
+    const episodeFiles: Episode[] = [
       {
         id: '1',
         title: 'The Future of AI Development',

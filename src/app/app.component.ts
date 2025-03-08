@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <app-navbar></app-navbar>
     <main class="min-h-screen pt-16 pb-24">
-      <router-outlet></router-outlet>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
     </main>
     <app-audio-player
       *ngIf="currentEpisode"
@@ -24,5 +24,9 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   currentEpisode: any = null;
 
-  // Logic to set the current episode
+  onActivate(event: any) {
+    if (event.episode) {
+      this.currentEpisode = event.episode;
+    }
+  }
 }

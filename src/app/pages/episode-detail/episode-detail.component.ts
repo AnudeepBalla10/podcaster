@@ -2,6 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+interface Episode {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  audioUrl: string;
+  duration: string;
+  date: Date;
+  tags: string[];
+}
+
 @Component({
   selector: 'app-episode-detail',
   standalone: true,
@@ -51,7 +62,7 @@ import { ActivatedRoute } from '@angular/router';
   `
 })
 export class EpisodeDetailComponent implements OnInit {
-  episode: any;
+  episode: Episode | undefined;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -63,7 +74,7 @@ export class EpisodeDetailComponent implements OnInit {
   loadEpisode(id: string | null) {
     if (!id) return;
 
-    const episodes = [
+    const episodes: Episode[] = [
       {
         id: '1',
         title: 'The Future of AI Development',
@@ -92,7 +103,8 @@ export class EpisodeDetailComponent implements OnInit {
 
   playEpisode() {
     if (this.episode) {
-      // Logic to play the episode
+      const audio = new Audio(this.episode.audioUrl);
+      audio.play();
     }
   }
 }

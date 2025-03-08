@@ -22,5 +22,7 @@ import { CommonModule } from '@angular/common';
   `
 })
 export class AppComponent {
-  currentEpisode: any = null; // This will be populated when an episode is selected
+  currentEpisode: any = null;
+
+  // Logic to set the current episode
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,18 +12,17 @@ import { ActivatedRoute } from '@angular/router';
         <div class="bg-slate-800 rounded-lg p-8">
           <div class="flex flex-col md:flex-row gap-8">
             <div class="w-full md:w-1/3">
-              <img src="https://via.placeholder.com/400x400" 
+              <img [src]="episode?.coverImage" 
                    alt="Episode Cover" 
                    class="w-full rounded-lg">
             </div>
             <div class="w-full md:w-2/3">
-              <h1 class="text-3xl font-bold mb-4">Episode Title</h1>
+              <h1 class="text-3xl font-bold mb-4">{{ episode?.title }}</h1>
               <p class="text-slate-300 mb-6">
-                Detailed episode description goes here. This will be populated with
-                actual episode data once connected to a data source.
+                {{ episode?.description }}
               </p>
               <div class="flex items-center space-x-4 mb-8">
-                <button class="btn-primary">
+                <button class="btn-primary" (click)="playEpisode()">
                   <i class="fas fa-play mr-2"></i> Play Episode
                 </button>
                 <button class="btn-secondary">
@@ -51,6 +50,49 @@ import { ActivatedRoute } from '@angular/router';
     </div>
   `
 })
-export class EpisodeDetailComponent {
+export class EpisodeDetailComponent implements OnInit {
+  episode: any;
+
   constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    const episodeId = this.route.snapshot.paramMap.get('id');
+    this.loadEpisode(episodeId);
+  }
+
+  loadEpisode(id: string | null) {
+    if (!id) return;
+
+    const episodes = [
+      {
+        id: '1',
+        title: 'The Future of AI Development',
+        description: 'Exploring the latest developments in artificial intelligence.',
+        coverImage: 'assets/episodes/ai-future.jpg',
+        audioUrl: 'assets/episodes/ai-future.mp3',
+        duration: '45:30',
+        date: new Date('2025-01-15'),
+        tags: ['AI', 'Technology']
+      },
+      {
+        id: '2',
+        title: 'Web Development Trends 2025',
+        description: 'Discussion about the latest web development trends.',
+        coverImage: 'assets/episodes/web-trends.jpg',
+        audioUrl: 'assets/episodes/web-trends.mp3',
+        duration: '38:15',
+        date: new Date('2025-01-10'),
+        tags: ['Web Development', 'Technology']
+      }
+      // Add more episodes as needed
+    ];
+
+    this.episode = episodes.find(ep => ep.id === id);
+  }
+
+  playEpisode() {
+    if (this.episode) {
+      // Logic to play the episode
+    }
+  }
 }

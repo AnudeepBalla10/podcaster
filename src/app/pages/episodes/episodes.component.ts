@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -79,36 +79,46 @@ import { FormsModule } from '@angular/forms';
     </div>
   `
 })
-export class EpisodesComponent {
+export class EpisodesComponent implements OnInit {
   searchQuery: string = '';
   selectedTag: string = '';
   sortBy: string = 'date';
   
   tags: string[] = ['AI', 'Web Development', 'Cloud', 'Security', 'Mobile', 'DevOps'];
   
-  episodes = [
-    {
-      id: '1',
-      title: 'The Future of AI Development',
-      description: 'Exploring the latest developments in artificial intelligence.',
-      coverImage: 'https://via.placeholder.com/400x400',
-      audioUrl: '/assets/episodes/ai-future.mp3',
-      duration: '45:30',
-      date: new Date('2025-01-15'),
-      tags: ['AI', 'Technology']
-    },
-    {
-      id: '2',
-      title: 'Web Development Trends 2025',
-      description: 'Discussion about the latest web development trends.',
-      coverImage: 'https://via.placeholder.com/400x400',
-      audioUrl: '/assets/episodes/web-trends.mp3',
-      duration: '38:15',
-      date: new Date('2025-01-10'),
-      tags: ['Web Development', 'Technology']
-    },
-    // Add more episodes as needed
-  ];
+  episodes: any[] = [];
+
+  ngOnInit() {
+    this.loadEpisodes();
+  }
+
+  loadEpisodes() {
+    const episodeFiles = [
+      {
+        id: '1',
+        title: 'The Future of AI Development',
+        description: 'Exploring the latest developments in artificial intelligence.',
+        coverImage: 'assets/episodes/ai-future.jpg',
+        audioUrl: 'assets/episodes/ai-future.mp3',
+        duration: '45:30',
+        date: new Date('2025-01-15'),
+        tags: ['AI', 'Technology']
+      },
+      {
+        id: '2',
+        title: 'Web Development Trends 2025',
+        description: 'Discussion about the latest web development trends.',
+        coverImage: 'assets/episodes/web-trends.jpg',
+        audioUrl: 'assets/episodes/web-trends.mp3',
+        duration: '38:15',
+        date: new Date('2025-01-10'),
+        tags: ['Web Development', 'Technology']
+      }
+      // Add more episodes as needed
+    ];
+
+    this.episodes = episodeFiles;
+  }
 
   get filteredEpisodes() {
     return this.episodes
